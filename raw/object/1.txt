@@ -1,0 +1,148 @@
+Perfect, Raghavendra. Let’s now move to:
+
+---
+
+## 🔹 Step 2: **Creating and Accessing Properties in JavaScript Objects**
+
+This is fundamental because **everything else (methods, inheritance, design patterns, etc.) builds on this**.
+
+---
+
+### ✅ Ways to Create an Object
+
+#### 1. **Object Literal (most common way):**
+
+```javascript
+const person = {
+  name: "Raghavendra",
+  age: 30,
+};
+```
+
+#### 2. **Using `new Object()` constructor:**
+
+```javascript
+const person = new Object();
+person.name = "Raghavendra";
+person.age = 30;
+```
+
+#### 3. **Using Object.create():**
+
+More advanced — creates an object with a specified prototype.
+
+```javascript
+const base = { greet: () => console.log("Hi!") };
+const person = Object.create(base);
+person.name = "Raghavendra";
+```
+
+---
+
+### ✅ Adding Properties
+
+You can add properties dynamically using:
+
+#### 1. **Dot Notation**
+
+```javascript
+person.city = "Bangalore";
+```
+
+#### 2. **Bracket Notation**
+
+```javascript
+person["country"] = "India";
+```
+
+✅ **Use cases:**
+
+* Dot notation is cleaner and preferred when the key is a valid identifier (no spaces, starts with a letter).
+* Bracket notation is required when:
+
+  * Property name is dynamic:
+
+    ```javascript
+    const key = "hobby";
+    person[key] = "Coding";
+    ```
+  * Property name has spaces or special characters:
+
+    ```javascript
+    person["full name"] = "Raghavendra K J";
+    ```
+
+---
+
+### ✅ Accessing Properties
+
+#### 1. **Dot Notation**
+
+```javascript
+console.log(person.name); // "Raghavendra"
+```
+
+#### 2. **Bracket Notation**
+
+```javascript
+console.log(person["age"]); // 30
+```
+
+Again:
+
+* Dot notation is preferred when the property name is fixed and simple.
+* Bracket notation is flexible for computed property names.
+
+---
+
+### 🧠 Bonus: Property Keys Are Always Strings or Symbols
+
+Even if you write:
+
+```javascript
+const obj = { 1: "one" };
+console.log(obj["1"]); // "one"
+```
+
+➡️ The key `1` is implicitly converted to string `"1"`.
+
+---
+
+### ✅ Deleting Properties
+
+```javascript
+delete person.city;
+```
+
+---
+
+### ✅ Checking Property Existence
+
+```javascript
+"name" in person          // true
+person.hasOwnProperty("age") // true
+```
+
+---
+
+### ✅ Looping Over Properties
+
+```javascript
+for (let key in person) {
+  console.log(key, person[key]);
+}
+```
+
+Use `Object.keys()`, `Object.values()`, `Object.entries()` for arrays:
+
+```javascript
+Object.keys(person);   // ['name', 'age', 'country', 'hobby', 'full name']
+Object.values(person); // ['Raghavendra', 30, 'India', 'Coding', 'Raghavendra K J']
+```
+
+---
+
+Would you like to move to **Step 3: Types of Properties (Data vs Accessor)** or **Property Attributes** like `enumerable`, `configurable`, and `writable`? Or go deeper into computed properties and dynamic property access?
+
+
+

@@ -1,0 +1,87 @@
+Great questions — you're touching on **how JavaScript object keys work**, especially regarding **key types** and **object key collisions**. Let’s clarify everything one by one in a concise way.
+
+---
+
+### 🔹 1. **Are object keys in JavaScript always converted to strings?**
+
+Yes, **in plain JavaScript objects (`{}`)**, all keys **are automatically converted to strings** (or symbols, which are a special case).
+
+✅ Example:
+
+```js
+const obj = {};
+obj[42] = 'number key';
+obj['42'] = 'string key';
+console.log(obj); // { '42': 'string key' } — only one key
+```
+
+Here, `42` and `'42'` both become `'42'` (string), so the second assignment overrides the first.
+
+---
+
+### 🔹 2. **Can we still access the key using the original data type?**
+
+No — because **the original key is internally converted to a string**, you **must** use its string representation to access it reliably.
+
+✅ Example:
+
+```js
+const obj = {};
+obj[true] = 'value';
+console.log(obj['true']);  // ✅ 'value'
+console.log(obj[true]);    // ✅ also works — because `true` is converted to `'true'`
+```
+
+---
+
+### 🔹 3. **What happens if we use an object as a key?**
+
+When you use an object (or array or function) as a key in a plain object (`{}`), it gets converted to the string `"[object Object]"`, unless `toString()` is overridden. This **leads to key collisions**.
+
+✅ Example:
+
+```js
+const obj = {};
+const key1 = { a: 1 };
+const key2 = { b: 2 };
+
+obj[key1] = 'first';
+obj[key2] = 'second';
+
+console.log(obj); // { '[object Object]': 'second' }
+```
+
+Here, both `key1` and `key2` become `"[object Object]"`, so the second assignment **overwrites** the first one.
+
+---
+
+### 🔹 ✅ How to avoid this?
+
+Use **`Map`** if you need to use objects as keys **without automatic string conversion**.
+
+✅ Example:
+
+```js
+const map = new Map();
+const key1 = { a: 1 };
+const key2 = { b: 2 };
+
+map.set(key1, 'first');
+map.set(key2, 'second');
+
+console.log(map.get(key1)); // 'first'
+console.log(map.get(key2)); // 'second'
+```
+
+---
+
+### ✅ Summary:
+
+| Feature                         | Plain Object `{}`                               | Map                                 |
+| ------------------------------- | ----------------------------------------------- | ----------------------------------- |
+| Key types allowed               | String or Symbol (others are coerced to string) | Any (object, array, function, etc.) |
+| Object key uniqueness preserved | ❌ No                                            | ✅ Yes                               |
+| Use for simple structures       | ✅ Yes                                           | —                                   |
+| Use for object keys             | ❌ No                                            | ✅ Yes                               |
+
+Let me know if you want a short visual or demo example of this!
